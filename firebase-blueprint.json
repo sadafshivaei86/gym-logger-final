@@ -1,0 +1,72 @@
+{
+  "entities": {
+    "Movement": {
+      "title": "Movement",
+      "description": "An exercise movement in the gym.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "category": { "type": "string", "enum": ["Legs", "Back", "Chest", "Shoulders", "Arms", "Core", "Cardio", "Other"] },
+        "isCustom": { "type": "boolean" }
+      },
+      "required": ["name", "category"]
+    },
+    "Workout": {
+      "title": "Workout",
+      "description": "A recorded workout session.",
+      "type": "object",
+      "properties": {
+        "date": { "type": "string", "format": "date" },
+        "entries": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/WorkoutEntry" }
+        },
+        "createdAt": { "type": "number" },
+        "completed": { "type": "boolean" }
+      },
+      "required": ["date", "entries", "createdAt", "completed"]
+    },
+    "Template": {
+      "title": "Template",
+      "description": "A workout routine template.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "entries": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/TemplateEntry" }
+        },
+        "createdAt": { "type": "number" },
+        "order": { "type": "number" }
+      },
+      "required": ["name", "entries", "createdAt"]
+    },
+    "Settings": {
+      "title": "Settings",
+      "description": "User preferences.",
+      "type": "object",
+      "properties": {
+        "unit": { "type": "string", "enum": ["kg", "lbs"] },
+        "theme": { "type": "string", "enum": ["system", "light", "dark"] }
+      }
+    }
+  },
+  "firestore": {
+    "/users/{userId}/movements/{movementId}": {
+      "schema": "Movement",
+      "description": "User specific exercise library."
+    },
+    "/users/{userId}/workouts/{workoutId}": {
+      "schema": "Workout",
+      "description": "Recorded workout sessions."
+    },
+    "/users/{userId}/templates/{templateId}": {
+      "schema": "Template",
+      "description": "User workout templates."
+    },
+    "/users/{userId}/settings/current": {
+      "schema": "Settings",
+      "description": "User UI preferences."
+    }
+  }
+}

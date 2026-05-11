@@ -1,0 +1,6 @@
+{
+  "name": "Gym Logger",
+  "description": "A minimal, mobile-first gym logging PWA designed for fast workout tracking with large touch targets and tactile feedback.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
